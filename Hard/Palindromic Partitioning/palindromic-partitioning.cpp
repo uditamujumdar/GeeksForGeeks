@@ -9,54 +9,34 @@ using namespace std;
 
 class Solution{
 public:
-   
     int palindromicPartition(string str)
     {
-        // code here
-        
-        
-    // Get the length of the string
-    int n = str.length();
+        int n = str.length();
 
-    int C[n][n];
- 
-    // P[i][j] = true if substring str[i..j] is palindrome,
-    // else false
-    bool P[n][n];
- 
-    // Note that C[i][j] is 0 if P[i][j] is true
- 
-    // Every substring of length 1 is a palindrome
-    for (int i = 0; i < n; i++) {
-        P[i][i] = true;
-        C[i][i] = 0;
-    }
+        int C[n][n];
 
-    for (int L = 2; L <= n; L++) {
+        bool P[n][n];
  
-        // For substring of length L, set
-        // different possible starting indexes
-        for (int i = 0; i < n - L + 1; i++) {
-            int j = i + L - 1; // Set ending index
+        for (int i = 0; i < n; i++) {
+            P[i][i] = true;
+            C[i][i] = 0;
+        }
+
+        for (int L = 2; L <= n; L++) {
  
-            // If L is 2, then we just need to
-            // compare two characters. Else
-            // need to check two corner characters
-            // and value of P[i+1][j-1]
-            if (L == 2)
+            for (int i = 0; i < n - L + 1; i++) {
+                int j = i + L - 1; // Set ending index
+
+                if (L == 2)
                 P[i][j] = (str[i] == str[j]);
-            else
+                else
                 P[i][j]
                     = (str[i] == str[j]) && P[i + 1][j - 1];
  
-            // IF str[i..j] is palindrome, then C[i][j] is 0
             if (P[i][j] == true)
                 C[i][j] = 0;
             else {
- 
-                // Make a cut at every possible
-                // location starting from i to j,
-                // and get the minimum cost cut.
+
                 C[i][j] = INT_MAX;
                 for (int k = i; k <= j - 1; k++)
                     C[i][j] = min(
@@ -65,8 +45,7 @@ public:
         }
     }
  
-    // Return the min cut value for
-    // complete string. i.e., str[0..n-1]
+
     return C[0][n - 1];
     }
 };
