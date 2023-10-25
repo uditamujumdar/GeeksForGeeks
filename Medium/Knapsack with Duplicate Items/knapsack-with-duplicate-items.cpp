@@ -9,29 +9,52 @@ using namespace std;
 
 class Solution{
 public:
-
-    int f(int ind, int W, int* val, int* wt, vector<vector<int>>& dp){
-        if(ind==0){
-            return (W/wt[0])*val[0];
+    int shaurya(int index,int target,int *val,int *wt, vector<vector<int>> &dp)
+{
+    if(target<=0)
+    {
+        return 0;
+    }
+    if(index==0)
+    {
+        if(wt[index]<=target)
+        {
+            return (int)(target/wt[0])*val[0];
         }
-        if(dp[ind][W]!=-1){
-            return dp[ind][W];
+        else
+        {
+            return -1e9;
         }
-        
-        int nottake=f(ind-1, W, val, wt, dp);
-        int take=-1e8;
-        if(wt[ind]<=W){
-            take=val[ind]+f(ind, W-wt[ind], val, wt, dp);
-        }
-        
-        return dp[ind][W]=max(take, nottake);
+    }
+    if(dp[index][target]!=-1)
+    {
+        return dp[index][target];
     }
     
+    int notpick=shaurya(index-1,target,val,wt,dp);
     
+    int pick=0;
+    
+    if(target>=wt[index])
+    {
+        pick=val[index]+shaurya(index,target-wt[index],val,wt,dp);
+    }
+    return dp[index][target]=max(pick,notpick);
+}
+
     int knapSack(int N, int W, int val[], int wt[])
     {
-        vector<vector<int>>dp(N, vector<int>(W+1, -1));
-        return f(N-1, W, val, wt, dp);
+        vector<vector<int>>dp(N+1,vector<int>(W+1,-1));
+       
+     int ans=shaurya(N-1,W,val,wt,dp);
+      if(ans==-1e9)
+      {
+          return 0;
+      }
+      else
+      {
+          return ans;
+      }
     }
 };
 
