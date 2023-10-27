@@ -8,7 +8,7 @@ using namespace std;
 
 class Solution{
   public:
-   int f(string s) {
+    int f(string s) {
     int n = s.length();
     vector<vector<int>> dp(n, vector<int>(n, 0));
 
