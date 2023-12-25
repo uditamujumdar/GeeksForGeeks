@@ -10,30 +10,49 @@ using namespace std;
 
 class Solution {
   public:
-    bool detectCycle(int vertex,vector<int> adj[],vector<bool>&vis,vector<bool>&order,vector<int>&ans){
-        order[vertex]=true;
-        if(!vis[vertex]){
-            vis[vertex]=true;
-            for(auto x: adj[vertex]){
-                if(!vis[x]&&detectCycle(x,adj,vis,order,ans))return true;
-                else if(order[x])return true;
+    bool checkDfs(int node,vector<int>adj[],int vis[],int pathvis[],int check[]){
+      vis[node]=1;
+      pathvis[node]=1;
+      check[node]=0;
+      for(auto it:adj[node])
+      {
+          if(vis[it]==0)
+          {
+              if(checkDfs(it,adj,vis,pathvis,check)==true)
+              {
+                  check[node]=0;
+               return true;   
+              }
+          }
+          else if(pathvis[it]==1)
+          {
+              return true;
+          }
+      }
+      check[node]=1;
+      pathvis[node]=0;
+      
+      return false;
+  }
+    
+    vector<int> eventualSafeNodes(int V, vector<int> adj[]) {
+        int vis[V]={0};
+        int pathvis[V]={0};
+        int check[V]={0};
+        vector<int>safestate;
+        for(int i=0;i<V;i++)
+        {
+            if(!vis[i])
+            {
+            checkDfs(i,adj,vis,pathvis,check);
             }
         }
-        order[vertex]=false;
-        ans.push_back(vertex);
-        return false;
-    }
- 
-    vector<int> eventualSafeNodes(int V, vector<int> adj[]) {
-        // code here
-          vector<int>ans;
-        vector<bool>vis(V,false);
-        vector<bool>order(V,false);
-        for(int i=0;i<V;i++){
-            if(!vis[i])detectCycle(i,adj,vis,order,ans);
+        for(int i=0;i<V;i++)
+        {
+            if(check[i]==1)
+            safestate.push_back(i);
         }
-        sort(ans.begin(),ans.end());
-        return ans;
+        return safestate;
     }
 };
 
