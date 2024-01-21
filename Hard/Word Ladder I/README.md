@@ -1,4 +1,4 @@
-<h2><a href="https://practice.geeksforgeeks.org/problems/word-ladder/0">Word Ladder I</a></h2><h3>Difficulty Level : Hard</h3><hr><div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given two distinct words <strong>startWord</strong> and <strong>targetWord</strong>, and a list&nbsp;denoting <strong>wordList</strong>&nbsp;of unique words of equal lengths. Find the length of the shortest transformation sequence from startWord to targetWord.<br>
+<h2><a href="https://www.geeksforgeeks.org/problems/word-ladder/0">Word Ladder I</a></h2><h3>Difficulty Level : Hard</h3><hr><div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given two distinct words <strong>startWord</strong> and <strong>targetWord</strong>, and a list&nbsp;denoting <strong>wordList</strong>&nbsp;of unique words of equal lengths. Find the length of the shortest transformation sequence from startWord to targetWord.<br>
 Keep&nbsp;the following conditions in mind:</span></p>
 
 <ul>
