@@ -8,17 +8,16 @@ using namespace std;
 // User function Template for C++
 class Solution {
   public:
-    void topoSort(int node, vector<pair<int, int>>adj [], int vis[], stack<int>& st){
+    void dfs(int node, vector<pair<int, int>>adj[], int vis[], stack<int>& st){
         vis[node]=1;
         for(auto it: adj[node]){
             int v=it.first;
             if(!vis[v]){
-                topoSort(v,adj,vis,st);
+                dfs(v, adj, vis, st);
             }
         }
         st.push(node);
     }
-    
     
      vector<int> shortestPath(int N,int M, vector<vector<int>>& edges){
         vector<pair<int, int>>adj[N];
@@ -35,7 +34,7 @@ class Solution {
         
         for(int i=0;i<N;i++){
             if(!vis[i]){
-                topoSort(i,adj,vis,st);
+                dfs(i,adj,vis,st);
             }
         }
         
