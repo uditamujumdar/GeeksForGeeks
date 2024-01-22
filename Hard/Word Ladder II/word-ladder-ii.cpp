@@ -9,11 +9,14 @@ using namespace std;
 class Solution {
 public:
     vector<vector<string>> findSequences(string beginWord, string endWord, vector<string>& wordList) {
-        set<string>st(wordList.begin(), wordList.end());
+        unordered_set<string>st(wordList.begin(), wordList.end());
+        
         queue<vector<string>>q;
         q.push({beginWord});
+        
         vector<string>used;
         used.push_back(beginWord);
+        
         int level=0;
         vector<vector<string>>ans;
         
@@ -21,6 +24,8 @@ public:
             vector<string>vec=q.front();
             q.pop();
             
+            //erase all the words that have been used
+            //in the prev levels to transform
             if(vec.size()>level){
                 level++;
                 for(auto it: used){
@@ -30,6 +35,7 @@ public:
             
             string word=vec.back();
             if(word==endWord){
+                //the first sequence where we reached end
                 if(ans.size()==0){
                     ans.push_back(vec);
                 }
@@ -37,6 +43,7 @@ public:
                     ans.push_back(vec);
                 }
             }
+            
             for(int i=0;i<word.size();i++){
                 char org=word[i];
                 for(char ch='a';ch<='z';ch++){
@@ -44,6 +51,7 @@ public:
                     if(st.count(word)>0){
                         vec.push_back(word);
                         q.push(vec);
+                        //mark as visited on the level
                         used.push_back(word);
                         vec.pop_back();
                     }
