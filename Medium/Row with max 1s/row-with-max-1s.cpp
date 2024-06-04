@@ -6,27 +6,36 @@ using namespace std;
 //User function template for C++
 class Solution{
 public:
-	int rowWithMax1s(vector<vector<int> > arr, int n, int m) {
-        int maxi = 0;
-        int j = m - 1;
- 
-        for (int i = 0; i < n; i++) {
+    int lower_bound(vector<int>& arr, int n, int x){
+        int i=0,j=n-1;
+        int ans=n;
         
-        bool flag=false; 
-        while (j >= 0 && arr[i][j] == 1) {
-            j = j - 1; 
-            flag=true ;
-          }
-      
-            if(flag){
-                maxi= i; 
+        while(i<=j){
+            int mid=i+(j-i)/2;
+            
+            if(arr[mid]>=x){
+                ans=mid;
+                j=mid-1;
+            }
+            else{
+                i=mid+1;
             }
         }
-        
-        if(maxi==0&& arr[0][m-1]==0)
-            return -1;
-            
-        return maxi;
+        return ans;
+    }
+    
+	int rowWithMax1s(vector<vector<int>>arr, int n, int m) {
+	    int maxi=0, ind=-1;
+	    
+	    for(int i=0;i<n;i++){
+	        int cnt=m-lower_bound(arr[i],m,1);
+	        
+	        if(cnt>maxi){
+	            maxi=cnt;
+	            ind=i;
+	        }
+	    }
+	    return ind;
 	}
 
 };
